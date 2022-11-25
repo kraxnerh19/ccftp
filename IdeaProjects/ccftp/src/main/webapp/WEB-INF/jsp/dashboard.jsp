@@ -74,19 +74,17 @@
 
     <div class="card text-dark bg-light mb-3" style="width: 100%;">
         <div class="card-body table-responsive">
-            <h5 class="card-title">Cost positions</h5>
+            <h5 class="card-title">Cloud Measurements</h5>
 
             <!-- Table for Cost Entries  -->
             <table data-toggle="table" class="table table-striped table-responsive">
                 <thead>
                 <tr>
-                    <th data-sortable="true">Name</th>
-                    <th data-sortable="true">Price</th>
-                    <th data-sortable="true">Price Share</th>
+                    <th data-sortable="true">Software</th>
+                    <th data-sortable="true">Azure co2e</th>
+                    <th data-sortable="true">GCP co2e</th>
+                    <th data-sortable="true">AWS co2e</th>
                     <th data-sortable="true">Date</th>
-                    <th data-sortable="true">Categories</th>
-                    <th data-sortable="true">Creator</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -155,12 +153,9 @@
             </table>
             <c:if test="${empty entries}">
                 <div class="alert alert-info" role="alert">
-                    This list is currently empty. Create a new cost position to expand the list.
+                    This list is currently empty.
                 </div>
             </c:if>
-            <div class="d-grid gap-2">
-                <a class="btn btn-success" type="button" href="/editEntry">Create new entry</a>
-            </div>
         </div>
     </div>
 

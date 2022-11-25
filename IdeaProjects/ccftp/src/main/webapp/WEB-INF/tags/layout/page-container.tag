@@ -20,8 +20,8 @@
     <div class="container-fluid">
         <a class="navbar-brand">
             <button class="openbtn" onclick="toggleNav()">&#9776;</button>
-            <img src="/img/cash-coin.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            <a href="/dashboard" class="me-auto" id="mainTitle">Household Finance Manager</a>
+            <img src="/img/cloudy-fill-white.svg" alt="" width="30" height="24" class="d-inline-block align-text-top cloud-icon">
+            <a href="/dashboard" class="me-auto" id="mainTitle">Cloud Carbon Footprint Transparency Project</a>
         </a>
     </div>
 </nav>
@@ -35,6 +35,13 @@
             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="dashboardButton" id="dashboardButton" type="button" aria-expanded="true">
                     <a href="/dashboard">Dashboard</a>
+                </button>
+            </h2>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="dashboardButton" id="informationButton" type="button" aria-expanded="true">
+                    <a href="/information">Information</a>
                 </button>
             </h2>
         </div>

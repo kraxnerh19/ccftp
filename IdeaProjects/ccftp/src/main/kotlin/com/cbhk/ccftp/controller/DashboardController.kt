@@ -14,6 +14,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.apache.commons.io.IOUtils
+import org.springframework.ui.set
 import java.nio.charset.StandardCharsets
 
 
@@ -51,7 +52,8 @@ class DashboardController(
                 }
             }
         }
-
+        model["CloudDataInternal"] = CloudDataInternalRepository.findAll()
+        model["SoftwareUsed"] = SoftwareUsedRepository.findAll()
         return "dashboard"
     }
 }
