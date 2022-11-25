@@ -1,9 +1,10 @@
 package com.cbhk.ccftp.repository
 
-import com.cbhk.ccftp.entity.CloudData
+import com.cbhk.ccftp.entity.CloudDataInternal
+import com.cbhk.ccftp.entity.SoftwareUsed
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface CloudDataRepository: JpaRepository<CloudData, Int> {
+interface SoftwareUsedRepository : JpaRepository<SoftwareUsed, Int> {
 }
