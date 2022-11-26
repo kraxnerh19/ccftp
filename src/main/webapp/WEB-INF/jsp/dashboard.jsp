@@ -92,16 +92,47 @@
                 <c:forEach items="${SoftwareUsed}" var="SoftwareUsed">
                     <tr>
                         <td><c:out value="${SoftwareUsed.softwareUsed}"/></td>
-
-                        <td><c:out value=""/></td>
-                        <td><c:out value=""/></td>
-                        <td><c:out value=""/></td>
-
-                        <td><c:out value="${SoftwareUsed.timestamp}"/></td>
-
-
+                        <td>
+                            <c:forEach items="${CloudDataInternal}" var="CloudDataInternal">
+                                <c:set var="time2" value="${CloudDataInternal.timestamp}"/>
+                                <c:set var="cloudProvider" value="${CloudDataInternal.cloudProvider}"/>
+                                <c:set var="co2e" value="${CloudDataInternal.co2e}"/>
+                                <c:set var="time" value="${SoftwareUsed.timestamp}"/>
+                                <c:if test="${time == time2 && cloudProvider == 'AZURE'}">
+                                    <c:out value="${co2e}"/>
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <c:forEach items="${CloudDataInternal}" var="CloudDataInternal2">
+                                <c:set var="time2" value="${CloudDataInternal2.timestamp}"/>
+                                <c:set var="cloudProvider" value="${CloudDataInternal2.cloudProvider}"/>
+                                <c:set var="co2e" value="${CloudDataInternal2.co2e}"/>
+                                <c:set var="time" value="${SoftwareUsed.timestamp}"/>
+                                <c:if test="${time == time2 && cloudProvider == 'GCP'}">
+                                    <c:out value="${co2e}"/>
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <c:forEach items="${CloudDataInternal}" var="CloudDataInternal2">
+                                <c:set var="time2" value="${CloudDataInternal2.timestamp}"/>
+                                <c:set var="cloudProvider" value="${CloudDataInternal2.cloudProvider}"/>
+                                <c:set var="co2e" value="${CloudDataInternal2.co2e}"/>
+                                <c:set var="time" value="${SoftwareUsed.timestamp}"/>
+                                <c:if test="${time == time2 && cloudProvider == 'AWS'}">
+                                    <c:out value="${co2e}"/>
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                        <td>
+                        <fmt:parseDate value="${SoftwareUsed.timestamp}" pattern="yyyy-MM-dd" var="parsedDate"
+                                       type="date"/>
+                        <fmt:formatDate value="${parsedDate}" type="date" pattern="dd.MM.yyyy"/>
+                        </td>
                     </tr>
                 </c:forEach>
+
                 </tbody>
             </table>
             <c:if test="${empty SoftwareUsed}">
