@@ -8,21 +8,29 @@ import com.cbhk.ccftp.repository.CloudDataRepository
 import com.cbhk.ccftp.repository.SoftwareUsedRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.apache.commons.io.IOUtils
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.ui.set
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import org.apache.commons.io.IOUtils
 import java.nio.charset.StandardCharsets
 
-
 @Controller
-class InformationController(
+class FurtherInformationController(
+    val CloudDataRepository: CloudDataRepository,
+    val CloudDataInternalRepository: CloudDataInternalRepository,
+    val SoftwareUsedRepository: SoftwareUsedRepository
 ) {
-    @RequestMapping(path = [ "/information"], method = [RequestMethod.GET])
-    fun listInformation(model: Model): String {
-        return "information"
+    @RequestMapping(path = [ "/furtherInformation"], method = [RequestMethod.GET])
+    fun listFurtherInformation(model: Model): String {
 
+
+        model["CloudDataInternal"] = CloudDataInternalRepository.findAll()
+        model["SoftwareUsed"] = SoftwareUsedRepository.findAll()
+        return "furtherInformation"
     }
+
+
 }
