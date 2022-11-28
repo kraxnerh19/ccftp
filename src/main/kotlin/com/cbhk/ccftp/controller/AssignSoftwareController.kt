@@ -35,8 +35,9 @@ class AssignSoftwareController(
 
     @RequestMapping(path=["/listSoftwareUsed"], method = [RequestMethod.GET])
     fun listSoftwareUsed(model: Model): String {
-        val softwareUsed = softwareUsedRepository.findAll()
-        model["softwareUsed"] = softwareUsed
+        model["softwareUsed"] = softwareUsedRepository.findAll()
+        model["softwareUsedAssigned"] = softwareUsedRepository.findAllBySoftwareUsedNameIsNot("") ?: ""
+        model["softwareUsedNotAssigned"] = softwareUsedRepository.findAllBySoftwareUsedNameIs("") ?: ""
         return "listSoftwareUsed"
     }
 

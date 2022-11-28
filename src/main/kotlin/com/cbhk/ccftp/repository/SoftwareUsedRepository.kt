@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SoftwareUsedRepository : JpaRepository<SoftwareUsed, Int> {
     fun findByTimestamp(timestamp: String?): SoftwareUsed?
+    fun findAllBySoftwareUsedNameIsNot(name: String?): List<SoftwareUsed>?
+    fun findAllBySoftwareUsedNameIs(name: String?): List<SoftwareUsed>?
 }
