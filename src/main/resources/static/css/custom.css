@@ -64,7 +64,6 @@
     margin-left: 50px;
 }
 
-
 /* The button used to open the sidebar */
 .openbtn {
     font-size: 20px;
@@ -138,6 +137,18 @@
 
 .paymentAccordionItem .accordion-button:focus{
     border-color:black;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #006236;
+}
+
+.nav-link {
+    color: #006236;
+}
+
+.nav-link:hover {
+    color: #069454;
 }
 
 

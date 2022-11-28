@@ -13,60 +13,36 @@
         <div class="card-header">
             <h5 class="card-title">Charts & Graphs</h5>
 
-            <div class="d-flex bd-highlight mb-3">
-                <div class="me-auto p-2 bd-highlight">
-                    <ul class="nav nav-tabs card-header-tabs" data-bs-tabs="tabs" id="chartIdNav">
+            <div class="d-flex justify-content-center bd-highlight mb-3">
+                <div class="me-auto p-2 bd-highlight justify-content-center">
+                    <ul class="nav nav-pills justify-content-center nav-fill nav-tabs card-header-tabs" data-bs-tabs="tabs" id="chartIdNav">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="true" data-bs-toggle="tab" href="#chart1Pane"
-                               onclick="getChartData()">Chart 1</a>
+                               onclick="getChartData()">CO2-Emissions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#chart2Pane" onclick="getChartData()">Chart
-                                2</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#chart2Pane" onclick="getChartData()">KWH</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#chart3Pane" onclick="getChartData()">Chart
-                                3</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#chart3Pane" onclick="getChartData()">Costs</a>
                         </li>
                     </ul>
-                </div>
-                <div class="p-2 bd-highlight" id="timeFrameNav">
-                    <div class="form-check form-check-inline" id="chartSelectorDateLimitWeek">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1week"
-                               value="option1" onclick="getChartData()" checked>
-                        <label class="form-check-label" for="inlineRadio1week">Week</label>
-                    </div>
-                    <div class="form-check form-check-inline" id="chartSelectorDateLimitMonth">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2month"
-                               value="option2" onclick="getChartData()" checked>
-                        <label class="form-check-label" for="inlineRadio2month">Month</label>
-                    </div>
-                    <div class="form-check form-check-inline" id="chartSelectorDateLimitYear">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3year"
-                               value="option3" onclick="getChartData()">
-                        <label class="form-check-label" for="inlineRadio3year">Year</label>
-                    </div>
-                    <div class="form-check form-check-inline" id="chartSelectorDateLimitAll">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4all"
-                               value="option4" onclick="getChartData()">
-                        <label class="form-check-label" for="inlineRadio4all">All</label>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Charts & Graphs -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <form class="card-body tab-content" id="#chartPanels">
             <div class="tab-pane active" id="chart1Pane">
-                <canvas id="chart1" style="width:100%; max-width:1000px; margin:auto;"></canvas>
+                <canvas id="chart1" style="width:100%; max-width:1000px; margin:auto; max-height:1000px;" aria-label="CO2 Emissions Chart" role="img"></canvas>
             </div>
             <div class="tab-pane" id="chart2Pane">
-                <canvas id="chart2" style="width:100%; max-width:1000px; margin:auto;"></canvas>
+                <canvas id="chart2" style="width:100%; max-width:1000px; margin:auto; max-height:1000px;" aria-label="Kilowatt Hours Used Chart" role="img"></canvas>
             </div>
             <div class="tab-pane" id="chart3Pane">
-                <canvas id="chart3" style="width:100%; max-width:1000px; margin:auto;"></canvas>
+                <canvas id="chart3" style="width:100%; max-width:1000px; margin:auto; max-height:1000px;" aria-label="Costs Chart" role="img"></canvas>
             </div>
         </form>
     </div>

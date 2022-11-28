@@ -24,19 +24,13 @@ function getRandomInt(max) {
 }
 
 //Colors used for charts
-let chartColors1 = [
-    "#9e0142",
-    "#d53e4f",
-    "#f46d43",
-    "#fdae61",
-    "#fee08b",
-    "#e6f598",
-    "#abdda4",
-    "#66c2a5",
-    "#3288bd",
-    "#5e4fa2"
-];
-let chartColors1Inv = chartColors1.slice().reverse();
+let chartColorAWS = "#FB9C38";
+let chartColorAzure = "#3077B3";
+let chartColorGCP = "#F14A3D";
+
+let chartColorAWSDark = "#bf782c";
+let chartColorAzureDark = "#1e517d";
+let chartColorGCPDark = "#b3352b";
 
 //Stores the current chart
 //Used to fix a bug with overlapping charts
@@ -47,176 +41,247 @@ let currentChart3 = null;
 //Defines the first active chart as chart1
 let activeChartId = "chart1"
 
-//Generate a chart with the chartId (1-3) and the date limit (all;year;month;day)
+//Generate a chart with the chartId (1-3)
 //If there is not enough data, display an info alert
 function getChartData() {
     //Find active chart tab and active timeframe tab
     let activeChartIdCurr = $('.nav-tabs .active').attr("href");
     if (typeof activeChartIdCurr != "undefined") {
-        activeChartId = activeChartIdCurr.substring(1,7)
+        activeChartId = activeChartIdCurr.substring(1, 7)
     }
-    let activeTimeFrame = $('input[type=radio]:checked', '#timeFrameNav').attr("id")
-    activeTimeFrame = activeTimeFrame.substring(12,activeTimeFrame.length);
+    console.log(activeChartId)
 
-    let url = "http://localhost:8080/chartdata/" + activeChartId + "/" + activeTimeFrame
+    let url = "http://localhost:8080/chartdata/"
     let ctx = null;
+    let activeChart = null;
 
-    switch(activeChartId) {
-        case "chart1" : { //Highest cost entries this timeframe as piechart
-            $.get(url, function (data, status) {
-                if (data.length === 0 || status === "error" || status === "timeout" || status === "parsererror") {
-                    replaceWithEmptyChartMessage(activeChartId);
-                    return;
-                } else {
-                    let activeChart = document.getElementById(activeChartId);
+    $.get(url, function (data, status) {
+        if (data.length === 0 || status === "error" || status === "timeout" || status === "parsererror") {
+            replaceWithEmptyChartMessage(activeChartId);
+            return;
+        } else {
+            activeChart = document.getElementById(activeChartId);
 
-                    if (activeChart == null) {
-                        createChartCanvas(activeChartId);
-                        activeChart = document.getElementById(activeChartId);
-                    }
-                    ctx = activeChart.getContext("2d")
-                }
-                let names = data.map(a => a.name);
-                let prices = data.map(a => (Math.round(a.price*100)/100).toFixed(2));
-
-                if(currentChart1!=null){currentChart1.destroy();}
-                currentChart1 = new Chart(ctx, {
-                    type: "pie",
-                    data: {
-                        labels: names,
-                        datasets: [{
-                            backgroundColor: chartColors1,
-                            data: prices
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: "Highest cost entries this " + activeTimeFrame,
-                            fontSize: 30
-                        }
-                    }
-                });
-            });
-            break;
+            if (activeChart == null) {
+                createChartCanvas(activeChartId);
+                activeChart = document.getElementById(activeChartId);
+            }
+            ctx = activeChart.getContext("2d")
+            console.log(ctx)
         }
-        case "chart2" : { //Cost per day this timeframe as linechart
-            $.get(url, function (data, status) {
-                if (data.length === 0 || status === "error" || status === "timeout" || status === "parsererror") {
-                    replaceWithEmptyChartMessage(activeChartId);
-                    return;
-                } else {
-                    let activeChart = document.getElementById(activeChartId);
+        data = data.filter(checkSoftwareUsed)
+        let software = data.filter(checkaws).map(a => a.usedSoftware)
 
-                    if (activeChart == null) {
-                        createChartCanvas(activeChartId);
-                        activeChart = document.getElementById(activeChartId);
-                    }
-                    ctx = activeChart.getContext("2d")
-                }
-                var result = [];
-                data.reduce(function (res, value) {
-                    if (!res[value.date]) {
-                        res[value.date] = {
-                            price: 0,
-                            date: value.date
-                        };
-                        result.push(res[value.date])
-                    }
-                    res[value.date].price += value.price
-                    return res;
-                }, {});
+        let awsco2 = data.filter(checkaws).map(a => a.co2e);
+        let azureco2 = data.filter(checkazure).map(a => a.co2e);
+        let gcpco2 = data.filter(checkgcp).map(a => a.co2e);
 
-                finalResult = result.sort(function(a,b){
-                    return new Date(b.date) - new Date(a.date);
-                }).reverse();
+        let awskwh = data.filter(checkaws).map(a => a.kilowattHours);
+        let azurekwh = data.filter(checkazure).map(a => a.kilowattHours);
+        let gcpkwh = data.filter(checkgcp).map(a => a.kilowattHours);
 
-                let dates = finalResult.map(a => a.date);
-                let prices = finalResult.map(a => (Math.round(a.price*100)/100).toFixed(2));
+        let awscost = data.filter(checkaws).map(a => a.cost);
+        let azurecost = data.filter(checkazure).map(a => a.cost);
+        let gcpcost = data.filter(checkgcp).map(a => a.cost);
 
-                if(currentChart2!=null){currentChart2.destroy();}
-                colorRandom = chartColors1[getRandomInt(9)]
-                currentChart2 = new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: dates,
-                        datasets: [{
-                            label: "Costs",
-                            backgroundColor: colorRandom,
-                            borderColor: "#000000",
-                            data: prices,
-                            tension: 0.2,
-                            fill: true,
-                            borderWidth: 2,
-                            drawActiveElementsOnTop: true,
-                            datalabels: {
-                                color: '#FFCE56'
-                            }
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: "Cost per day this " + activeTimeFrame,
-                            fontSize: 30
+        switch (activeChartId) {
+            case "chart1" : {
+                const dataUsed = {
+                    labels: software,
+                    datasets: [
+                        {
+                            label: 'GCP',
+                            data: gcpco2,
+                            backgroundColor: chartColorGCP,
                         },
-                    }
-                });
-            });
-            break;
-        }
-        case "chart3" : { //Cost per member this timeframe as doughnutchart
-            $.get(url, function (data, status) {
-                if (data.length === 0 || status === "error" || status === "timeout" || status === "parsererror") {
-                    replaceWithEmptyChartMessage(activeChartId);
-                    return;
-                } else {
-                    let activeChart = document.getElementById(activeChartId);
-                    if (activeChart == null) {
-                        createChartCanvas(activeChartId);
-                        activeChart = document.getElementById(activeChartId);
-                    }
-                    ctx = activeChart.getContext("2d")
-                }
-                var result = [];
-                data.reduce(function (res, value) {
-                    if (!res[value.creator]) {
-                        res[value.creator] = {
-                            price: 0,
-                            creator: value.creator
-                        };
-                        result.push(res[value.creator])
-                    }
-                    res[value.creator].price += value.price
-                    return res;
-                }, {});
-
-                let creators = result.map(a => a.creator);
-                let prices = result.map(a => (Math.round(a.price*100)/100).toFixed(2));
-
-                if(currentChart3!=null){currentChart3.destroy();}
-                colorRandom = chartColors1
-                currentChart3 = new Chart(ctx, {
-                    type: "doughnut",
-                    data: {
-                        labels: creators,
-                        datasets: [{
-                            backgroundColor: chartColors1Inv,
-                            data: prices
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: "Cost per member this " + activeTimeFrame,
-                            fontSize: 30
+                        {
+                            label: 'AWS',
+                            data: awsco2,
+                            backgroundColor: chartColorAWS,
+                        },
+                        {
+                            label: 'Azure',
+                            data: azureco2,
+                            backgroundColor: chartColorAzure,
                         }
-                    }
-                });
-            });
-            break;
+                    ]
+                };
+
+                if (currentChart1 != null) {
+                    currentChart1.destroy();
+                }
+                currentChart1 = new Chart(ctx, {
+                    type: 'bar',
+                    data: dataUsed,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 18,
+                                    }
+                                },
+                                position: 'bottom',
+                            },
+                            title: {
+                                display: true,
+                                font: {
+                                    size:30,
+                                },
+                                text: 'CO2 Emissions In Tons'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (item) => //TODO Are tons used?
+                                        `${item.dataset.label}: ${item.formattedValue} tons`,
+                                }
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    },
+                })
+                break;
+            }
+            case "chart2" : {
+                const dataUsed = {
+                    labels: software,
+                    datasets: [
+                        {
+                            label: 'GCP',
+                            data: gcpkwh,
+                            backgroundColor: chartColorGCP,
+                        },
+                        {
+                            label: 'AWS',
+                            data: awskwh,
+                            backgroundColor: chartColorAWS,
+                        },
+                        {
+                            label: 'Azure',
+                            data: azurekwh,
+                            backgroundColor: chartColorAzure,
+                        }
+                    ]
+                };
+
+                if (currentChart2 != null) {
+                    currentChart2.destroy();
+                }
+                currentChart2 = new Chart(ctx, {
+                    type: 'bar',
+                    data: dataUsed,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 18,
+                                    }
+                                },
+                                position: 'bottom',
+                            },
+                            title: {
+                                display: true,
+                                font: {
+                                    size:30,
+                                },
+                                text: 'Kilowatt Hours Used'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (item) =>
+                                        `${item.dataset.label}: ${item.formattedValue} kwh`,
+                                }
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    },
+                })
+                console.log(currentChart2);
+                break;
+            }
+            case "chart3" : {
+                const dataUsed = {
+                    labels: software,
+                    datasets: [
+                        {
+                            label: 'GCP',
+                            data: gcpcost,
+                            backgroundColor: chartColorGCP,
+                        },
+                        {
+                            label: 'AWS',
+                            data: awscost,
+                            backgroundColor: chartColorAWS,
+                        },
+                        {
+                            label: 'Azure',
+                            data: azurecost,
+                            backgroundColor: chartColorAzure,
+                        }
+                    ]
+                };
+
+                if (currentChart3 != null) {
+                    currentChart3.destroy();
+                }
+                currentChart3 = new Chart(ctx, {
+                    type: 'bar',
+                    data: dataUsed,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 18,
+                                    }
+                                },
+                                position: 'bottom',
+                            },
+                            title: {
+                                display: true,
+                                font: {
+                                    size:30,
+                                },
+                                text: 'Costs in $'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (item) =>
+                                        `${item.dataset.label}: ${item.formattedValue} $`,
+                                }
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    },
+                })
+                break;
+            }
         }
-    }
+    });
+
+
 }
 
 //Replace the currently displayed chart with a "no data message"
@@ -242,6 +307,22 @@ function createChartCanvas(chartId) {
     newChartCanvas.style.maxWidth = "1000px";
     newChartCanvas.style.margin = "auto";
     chartParentPane.replaceChild(newChartCanvas, emptyChartMessage);
+}
+
+function checkaws(data) {
+    return data.cloudProvider === "AWS"
+}
+
+function checkazure(data) {
+    return data.cloudProvider === "AZURE"
+}
+
+function checkgcp(data) {
+    return data.cloudProvider === "GCP"
+}
+
+function checkSoftwareUsed(data) {
+    return data.usedSoftware !== ""
 }
 
 

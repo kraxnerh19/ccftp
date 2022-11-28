@@ -1,5 +1,6 @@
 package com.cbhk.ccftp.controller
 
+import com.cbhk.ccftp.entity.ChartData
 import com.cbhk.ccftp.entity.CloudData
 import com.cbhk.ccftp.entity.CloudDataInternal
 import com.cbhk.ccftp.entity.SoftwareUsed
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.apache.commons.io.IOUtils
 import org.springframework.ui.set
+import org.springframework.web.bind.annotation.ResponseBody
 import java.nio.charset.StandardCharsets
+import javax.servlet.http.HttpServletRequest
 
 
 @Controller
@@ -55,5 +58,20 @@ class DashboardController(
         model["CloudDataInternal"] = CloudDataInternalRepository.findAll()
         model["SoftwareUsed"] = SoftwareUsedRepository.findAll()
         return "dashboard"
+    }
+
+    @RequestMapping(path = ["/chartdata"], method = [RequestMethod.GET])
+    @ResponseBody
+    fun getChartData(
+        request: HttpServletRequest
+    ): List<ChartData?>? {
+        val cloudData = CloudDataInternalRepository.findAll()
+        val chartData = mutableListOf<ChartData>()
+        for (data in cloudData) {
+            var usedSoftware = SoftwareUsedRepository.findByTimestamp(data.timestamp)?.softwareUsed.toString()
+            if (usedSoftware === "") {usedSoftware = "undefinedSoftware"}
+            chartData.add(ChartData(data.id,data.timestamp,data.cloudProvider,data.kilowattHours,data.co2e,data.cost,usedSoftware))
+        }
+        return chartData
     }
 }

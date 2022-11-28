@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SoftwareUsedRepository : JpaRepository<SoftwareUsed, Int> {
+    fun findAllBySoftwareUsedIsNot(value: String): List<SoftwareUsed>?
+    fun findByTimestamp(timestamp: String?): SoftwareUsed?
 }

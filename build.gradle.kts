@@ -32,11 +32,9 @@ dependencies {
         // spring-security-taglibs
         implementation("org.springframework.security:spring-security-taglibs")
         // https://mvnrepository.com/artifact/org.webjars/chartjs
-        implementation("org.webjars:chartjs:3.7.1")
+        implementation("org.webjars:chartjs:3.9.1")
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation("com.google.code.gson:gson:2.8.9")
-        // https://mavenlibs.com/maven/dependency/org.webjars.npm/chartjs-plugin-datalabels
-        implementation("org.webjars.npm:chartjs-plugin-datalabels:0.7.0")
         implementation("org.thymeleaf:thymeleaf:2.0.5")
         // https://mvnrepository.com/artifact/commons-io/commons-io
         implementation("commons-io:commons-io:2.6")
