@@ -161,8 +161,4 @@
     </div>
 </layout:page-container>
 
-<script>
-    getChartData();
-</script>
-
 

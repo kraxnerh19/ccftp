@@ -45,6 +45,13 @@
                 </button>
             </h2>
         </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="dashboardButton" id="assignSoftwareButton" type="button" aria-expanded="true">
+                    <a href="/listSoftwareUsed">Software</a>
+                </button>
+            </h2>
+        </div>
     </div>
 </div>
 
