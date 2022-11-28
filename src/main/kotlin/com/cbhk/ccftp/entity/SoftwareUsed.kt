@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.validation.constraints.NotNull
-import javax.validation.constraints.Null
 
 @Entity
 class SoftwareUsed (
@@ -17,5 +16,5 @@ class SoftwareUsed (
     var timestamp : String?  = null,
 
     @field:NotNull
-    var softwareUsed : String?  = "",
+    var softwareUsedName : String?  = "",
 )

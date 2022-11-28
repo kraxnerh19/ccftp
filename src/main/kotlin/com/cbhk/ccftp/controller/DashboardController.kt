@@ -68,7 +68,7 @@ class DashboardController(
         val cloudData = CloudDataInternalRepository.findAll()
         val chartData = mutableListOf<ChartData>()
         for (data in cloudData) {
-            var usedSoftware = SoftwareUsedRepository.findByTimestamp(data.timestamp)?.softwareUsed.toString()
+            var usedSoftware = SoftwareUsedRepository.findByTimestamp(data.timestamp)?.softwareUsedName.toString()
             if (usedSoftware === "") {usedSoftware = "undefinedSoftware"}
             chartData.add(ChartData(data.id,data.timestamp,data.cloudProvider,data.kilowattHours,data.co2e,data.cost,usedSoftware))
         }

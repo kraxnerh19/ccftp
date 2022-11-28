@@ -72,7 +72,7 @@
 
                 <c:forEach items="${SoftwareUsed}" var="SoftwareUsed">
                     <tr>
-                        <td><c:out value="${SoftwareUsed.softwareUsed}"/></td>
+                        <td><c:out value="${SoftwareUsed.softwareUsedName}"/></td>
                         <td>
                             <c:forEach items="${CloudDataInternal}" var="CloudDataInternal">
                                 <c:set var="time2" value="${CloudDataInternal.timestamp}"/>
