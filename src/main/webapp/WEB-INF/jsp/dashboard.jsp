@@ -82,7 +82,7 @@
                             <c:forEach items="${CloudDataInternal}" var="CloudDataInternal">
                                 <c:set var="time2" value="${CloudDataInternal.timestamp}"/>
                                 <c:set var="cloudProvider" value="${CloudDataInternal.cloudProvider}"/>
-                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="5" value="${CloudDataInternal.co2e}"/></c:set>
+                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="8" value="${CloudDataInternal.co2e}"/></c:set>
                                 <c:set var="time" value="${SoftwareUsed.timestamp}"/>
                                 <c:if test="${time == time2 && cloudProvider == 'AZURE'}">
                                     <c:out value="${co2e}"/>
@@ -93,7 +93,7 @@
                             <c:forEach items="${CloudDataInternal}" var="CloudDataInternal">
                                 <c:set var="time2" value="${CloudDataInternal.timestamp}"/>
                                 <c:set var="cloudProvider" value="${CloudDataInternal.cloudProvider}"/>
-                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="5" value="${CloudDataInternal.co2e}"/></c:set>
+                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="8" value="${CloudDataInternal.co2e}"/></c:set>
                                 <c:set var="time" value="${SoftwareUsed.timestamp}"/>
                                 <c:if test="${time == time2 && cloudProvider == 'GCP'}">
                                     <c:out value="${co2e}"/>
@@ -104,7 +104,7 @@
                             <c:forEach items="${CloudDataInternal}" var="CloudDataInternal">
                                 <c:set var="time2" value="${CloudDataInternal.timestamp}"/>
                                 <c:set var="cloudProvider" value="${CloudDataInternal.cloudProvider}"/>
-                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="5" value="${CloudDataInternal.co2e}"/></c:set>
+                                <c:set var="co2e"><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="8" value="${CloudDataInternal.co2e}"/></c:set>
                                 <c:set var="time" value="${SoftwareUsed.timestamp}"/>
                                 <c:if test="${time == time2 && cloudProvider == 'AWS'}">
                                     <c:out value="${co2e}"/>

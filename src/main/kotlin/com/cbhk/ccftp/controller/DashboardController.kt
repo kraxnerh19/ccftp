@@ -21,6 +21,8 @@ import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
 import java.net.ConnectException
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 
@@ -54,7 +56,12 @@ class DashboardController(
 
     fun getFromCCFAPI(): String? {
         try {
-            val uri = "http://localhost:4000/api"
+            val time = Calendar.getInstance().time
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = formatter.format(time)
+            val startDate = "2000-01-01"
+
+            val uri = "http://localhost:4000/api/footprint?start=$startDate&end=2023-01-19$currentDate"
             val restTemplate = RestTemplate()
             return restTemplate.getForObject(uri, String::class.java)
         } catch (e: RestClientException) {
