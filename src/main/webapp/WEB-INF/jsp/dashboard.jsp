@@ -9,6 +9,11 @@
 
 
 <layout:page-container title="Dashboard" activePage="dashboard">
+    <div class="d-grid gap-2 mb-3">
+        <a href="/refresh" class="btn btn-success refreshButton" role="button" type="button">
+            Refresh Data From Cloud Carbon Footprint API
+        </a>
+    </div>
     <div class="card text-dark bg-light mb-3">
         <div class="card-header">
             <h5 class="card-title">Charts & Graphs</h5>

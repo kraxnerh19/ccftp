@@ -19,16 +19,14 @@
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseOnePayment" aria-expanded="false"
                                 aria-controls="panelsStayOpen-collapseOnePayment">
-                            <h5>Information 1</h5>
+                            <h5>First Measurement - Jellyfin</h5>
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseOnePayment" class="accordion-collapse collapse"
                          aria-labelledby="panelsStayOpen-headingOnePayment">
                         <div class="accordion-body paymentAccordionBody">
-                            Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
-                            Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
-                            Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
-                            Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+                            Jellyfin is the volunteer-built media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached.
+                            See <a href="https://jellyfin.org/">https://jellyfin.org/</a>  for details.
                         </div>
                     </div>
                 </div>
