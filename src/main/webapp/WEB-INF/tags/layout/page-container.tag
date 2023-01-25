@@ -20,8 +20,10 @@
     <div class="container-fluid">
         <a class="navbar-brand">
             <button class="openbtn" onclick="toggleNav()">&#9776;</button>
-            <img src="/img/cloudy-fill-white.svg" alt="" width="30" height="24" class="d-inline-block align-text-top cloud-icon">
-            <a href="/dashboard" class="me-auto" id="mainTitle">Cloud Carbon Footprint Transparency Project</a>
+            <a href="/dashboard" class="me-auto" id="mainTitle">
+                <img src="/img/ccftplogo.svg" alt="CCFTP Logo" width="50" height="50" class="d-inline-block align-text-center" style="margin-right:20px;">
+                Cloud Carbon Footprint Transparency Project
+            </a>
         </a>
     </div>
 </nav>
