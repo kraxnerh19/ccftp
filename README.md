@@ -15,7 +15,7 @@ Tools used:
 Logo design:
 - [Chart Icon by Muhazdinata](https://www.flaticon.com/free-icons/chart)
 - [Cloud Icon by Freepik](https://www.flaticon.com/free-icons/cloud)
-- [Feet icon by Freepik](https://www.flaticon.com/free-icons/feet)
+- [Feet Icon by Freepik](https://www.flaticon.com/free-icons/feet)
 - [Tree Icon by Freepik](https://www.flaticon.com/free-icons/tree)
 - [Money Icon by Freepik](https://www.flaticon.com/free-icons/money)
 - [Energy Icon by nawicon](https://www.flaticon.com/free-icons/energy)
