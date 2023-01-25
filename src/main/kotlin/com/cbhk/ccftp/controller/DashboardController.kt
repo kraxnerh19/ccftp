@@ -61,7 +61,7 @@ class DashboardController(
             val currentDate = formatter.format(time)
             val startDate = "2000-01-01"
 
-            val uri = "http://localhost:4000/api/footprint?start=$startDate&end=2023-01-19$currentDate"
+            val uri = "http://localhost:4000/api/footprint?start=$startDate&end=$currentDate"
             val restTemplate = RestTemplate()
             return restTemplate.getForObject(uri, String::class.java)
         } catch (e: RestClientException) {
