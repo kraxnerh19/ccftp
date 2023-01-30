@@ -19,3 +19,9 @@ Logo design:
 - [Tree Icon by Freepik](https://www.flaticon.com/free-icons/tree)
 - [Money Icon by Freepik](https://www.flaticon.com/free-icons/money)
 - [Energy Icon by nawicon](https://www.flaticon.com/free-icons/energy)
+
+Database:<br>
+You have to change the Database to your own Database (local or online) in the applications.properties File.
+- Change spring.datasource.url
+- Change spring.datasource.username
+- Change spring.datasource.password
